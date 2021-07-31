@@ -4,23 +4,27 @@ a{
 
 /* header */
 header {
-  position: relative;
+  position: fixed;
+  top:0;
   width: 100%;
   height: 50px;
   text-align: center;
   background: rgba(245, 76, 9,1);
   /* 陰影 */
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);
-  margin-bottom: 20px;
+  z-index: 999;
 }
 
 
 .title{
   height:50px;
-  font-size: 20px;
+  font-size: 25px;
+  font-weight: 900;
   color: white;
   line-height: 50px;
   margin:0px 15px;
+  transform:scale(1,1);
+  transition: all 0.3s ease-out;
 }
 .nav{
   justify-content: center;
@@ -39,15 +43,20 @@ header {
   color: white;
     /*預設透明度 0*/  
   opacity: 0;
+  z-index: 999;
 }
 
 .navbar-toggle:checked ~ .nav {
+  position: relative;
   transform: scale(1, 1);
   opacity: 1;
+  z-index:999
   }
 .navbar-toggle:checked ~ .nav .nav-link {
+  position: relative;
   /*開啟時透明度為1*/
   opacity: 1;
+  z-index:999
 }
 
 .navbar-toggle-label{
@@ -91,6 +100,45 @@ header {
   position: absolute;
 }
 
+@media screen and (min-width: 768px) {
+  /*移除漢堡排*/
+  .navbar-toggle-label {
+    display: none;
+  }
+  .nav {
+    all: unset;
+    grid-column: 3 / 4;
+  }
+  
+  .nav-link {
+    margin: 0;
+    padding:0;
+    opacity: 1; 
+    transform:scale(1,1);
+    transition: all 0.3s ease-out;
+  }
+  header{
+    display: grid;
+    grid-template-columns: 1fr auto minmax(600px, 3fr) 1fr;
+  }
+  .title{
+    grid-column: 2 / 3;
+  }
+  .nav-list {
+    height: 100%;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: end;
+    align-items: center;
+    grid-gap:2rem;
+  }
+  .title:hover,
+  .nav-link:hover{
+    color:white;
+    transform:scale(1.2,1.2);
+  }
+}
+
 /* 幫助中心 */
 .helper-center{
   font-size:20px;
@@ -109,6 +157,10 @@ header {
   color: white;
   text-align: center;
   line-height: 50px;
+}
+
+.wrapper{
+  margin-top:60px ;
 }
 
 .help-title{
@@ -144,4 +196,154 @@ header {
 .fa-question-circle,
 .fa-balance-scale-right{
   margin-right:5px;
+}
+
+@media screen and (min-width: 768px) {
+  .container{
+    width: 80%;
+    margin:0px auto
+  }
+  .wrapper{
+    width:100px;
+    margin-top:60px ;
+  }
+}
+
+/* product page */
+.container{
+ justify-content: space-around;
+ margin: 0px auto;
+}
+
+.product-container{
+  position: relative;
+  width:80%;
+  border-radius: 10px;
+  padding: 0;
+  margin: 0px auto 20px;
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.7);
+}
+
+.form-btn{
+  display: inline-block;
+}
+.btn-light{
+  width:50px
+}
+
+.product-wrapper{
+  border-radius: 10px;
+  height: 200px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.sub-wrapper{
+  position: absolute;
+  bottom:0;
+  right: 0;
+  background-color: rgba(240, 229, 229, 0.8);
+  display:flex;
+  flex-direction: column;
+  align-items: flex-end;
+  border-radius: 10px;
+  padding:5px;
+  margin:5px;
+}
+.name{
+  font-weight: 800;
+}
+
+.info-icon{
+  visibility: hidden;
+  position: absolute;
+}
+
+.heart-icon{
+  position: absolute;
+  top:0;
+  right:0;
+  z-index: 10;
+}
+.btn-light{
+  border-color: transparent;
+  background-color:rgba(240, 229, 229, 0.8)
+}
+.search-bar{
+  width:100%;
+  background-color: rgba(192, 187, 187, 0.1);
+}
+.search{
+  width:100%;
+  display: flex;
+}
+.d-flex{
+  margin:60px auto 0px
+}
+
+.category-wrapper{
+  width: 80%;
+  margin: auto auto 10px;
+}
+
+.category{
+  color: rgb(59, 98, 131);
+  font-weight: 700;
+}
+
+.category-btn{
+  border:none;
+  background-color: transparent;
+}
+
+@media screen and (min-width: 768px) {
+  .container{
+    all:unset;
+    width: 80%;
+    margin: auto;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap:2rem;
+  }
+  .product-container{
+    width: 100%;
+    margin:0px 0px 10px 0px 
+  }
+  .search{
+    all:unset;
+    display: flex;
+    width:400px;
+    grid-area: search;
+  }
+  .search-bar{
+    all:unset;
+    height:50px;
+    margin:50px auto 20px;
+    padding-top: 10px;
+    display: grid;
+    grid-template-columns: 0.3fr 400px 1fr 0.3fr;
+    grid-template-areas: 
+      ". search category .";
+    background-color: rgba(192, 187, 187, 0.1);
+  }
+  .form-control{
+    width: 300px;
+  }
+
+  .category{
+    all:unset;
+    line-height: 30px;
+  }
+  .d-flex{
+    all:unset;
+    height:40px;
+  } 
+  .category-wrapper{
+    width: 80%;
+    grid-area: category; 
+    display:flex;
+    align-items: center;
+    padding-bottom: 10px;
+    margin:0px
+  }
 }

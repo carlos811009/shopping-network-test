@@ -1,0 +1,29 @@
+<h1 class="text-center mt-3">Register</h1>
+{{> message}}
+<form class="form-Login" action="/user/register" method="POST" style="width: 80%; margin:10px auto 0px;">
+  <div class="text-center mb-4">
+    <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
+  </div>
+  <div class="form-label-group">
+    <label for="inputName">匿名</label>
+    <input type="text" name="name" class="form-control" placeholder="Name" required autofocus>
+  </div>
+  <div class="form-label-group">
+    <label for="inputAccount">帳號</label>
+    <input type="text" name="account" class="form-control" placeholder="account" required autofocus>
+  </div>
+  <div class="form-label-group">
+    <label for="inputPassword">密碼</label>
+    <input type="password" name="password" class="form-control" placeholder="Password" required autofocus>
+  </div>
+  <div class="form-label-group">
+    <label for="inputPasswordCheck">確認密碼</label>
+    <input type="password" name="checkPassword" class="form-control" placeholder="Password Check" required>
+  </div>
+  <br />
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+  <div class="text-center mb-4">
+    <p><a href="/login">Login</a></p>
+  </div>
+  <p class="mt-5 mb-3 text-muted text-center">© 2021 禎嚴選</p>
+</form>
