@@ -8,7 +8,7 @@
   <div class="category-wrapper">
     {{#each category}}
     <button type="buttom" class="category-btn">
-      <a class="category" href="/">{{this.name}}</a>
+      <a class="category" href="/product/search?search={{this.name}}">{{this.name}}</a>
     </button>
     {{/each}}
   </div>

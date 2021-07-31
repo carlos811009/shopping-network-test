@@ -27,17 +27,18 @@ const productionService = {
   searchProducts: async (req, res, callback) => {
     try {
       const searchKey = req.query.search
-      const category = await Category.findAll({
+      const category = await Category.findAll({ raw: true, nest: true })
+      const categoryProducts = await Category.findAll({
         raw: true,
         nest: true,
         where: { name: searchKey },
         include: [{ model: Product, attributes: { exclude: ["Products"] } }],
         order: [['createdAt', 'DESC']]
       })
-      if (category.length !== 0) {
-        return callback(category)
+      if (categoryProducts.length !== 0) {
+        return callback({ categoryProducts, category })
       }
-      if (category.length === 0) {
+      if (categoryProducts.length === 0) {
         const products = await Product.findAll({
           raw: true,
           nest: true,
@@ -49,8 +50,7 @@ const productionService = {
           },
           order: [["createdAt", "DESC"]]
         })
-        console.log('products', products)
-        return callback(products)
+        return callback({ products, category })
       }
     } catch (err) {
       console.log(err)

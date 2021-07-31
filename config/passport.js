@@ -31,7 +31,10 @@ passport.serializeUser((user, done) => {
 })
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await User.findByPk(id)
+    const user = await User.findByPk(id, {
+      raw: true,
+      nest: true
+    })
     done(null, user)
   } catch (err) {
     return done(err, null)

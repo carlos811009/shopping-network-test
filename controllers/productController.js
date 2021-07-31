@@ -9,10 +9,14 @@ const productController = {
   },
   searchProducts: (req, res) => {
     productService.searchProducts(req, res, (data) => {
-      data = data.map(item =>
-        item.Products ? item.Products : item
-      )
-      return res.render('search', { products: data })
+      if (data.categoryProducts) {
+        const products = data.categoryProducts.map(item =>
+          item.Products ? item.Products : item
+        )
+        return res.render('search', { products, category: data.category })
+      } else {
+        return res.render('search', { products: data.products, category: data.category })
+      }
     })
   }
 }
