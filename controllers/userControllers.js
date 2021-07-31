@@ -14,7 +14,20 @@ const userController = {
     req.logout()
     req.flash('success_msg', '登出成功')
     return res.redirect('/login')
+  },
+  likeProducts: (req, res) => {
+    userService.likeProducts(req, res, (data) => {
+      if (data.status === 'success') {
+        req.flash('success_msg', data.message)
+        return res.redirect('back')
+      }
+      if (data.status === 'error') {
+        req.flash('error_msg', data.message)
+        return res.redirect('back')
+      }
+    })
   }
+
 }
 
 module.exports = userController

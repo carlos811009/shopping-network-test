@@ -1,4 +1,4 @@
-const { Users } = require('../models')
+const { User, Like } = require('../models')
 const userService = {
   register: async (req, res, callback) => {
     try {
@@ -28,6 +28,18 @@ const userService = {
     }
 
   },
+  likeProducts: async (req, res, callback) => {
+    try {
+      const like = await Like.create({
+        UserId: req.user.id,
+        ProductId: Number(req.params.id)
+      })
+      if (like) { return callback({ status: 'success', message: '新增喜歡成功' }) }
+      callback({ status: 'error', message: '新增失敗' })
+    } catch (err) {
+      console.log(err)
+    }
+  }
 }
 
 module.exports = userService
