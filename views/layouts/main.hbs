@@ -18,22 +18,33 @@
     <input type="checkbox" class="navbar-toggle" id="navbar-toggle" />
     <nav class="nav">
       <ul class="nav-list p-0 m-0">
+        {{#if isAuthenticated}}
         <li class="nav-item">
           <a class="nav-link" href="#activity">人氣商品</a>
         </li>
-        <li class="nav-item"><a class="nav-link" href="#album">我的最愛</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="#album">我的最愛</a>
+        </li>
+        {{/if}}
         <li class="nav-item">
           <a class="nav-link" href="/help">幫助中心</a>
         </li>
+        {{#if role}}
+        <li class="nav-item">
+          <a href="/admin" style="color: white;margin-right: 10px;">Admin 後台</a>
+        </li>
+        {{/if}}
+        {{#if isAuthenticated}}
+        <li class="nav-item">
+          <a href="/logout" class="nav-link">Logout</a>
+        </li>
+        {{/if}}
       </ul>
     </nav>
     {{#if isAuthenticated}}
     <label class="navbar-toggle-label" for="navbar-toggle">
       <span class="hamburger"></span>
     </label>
-    {{/if}}
-    {{#if isAuthenticated}}
-    <a href="/users/logout" class="btn btn-outline-light">Logout</a>
     {{/if}}
   </header>
 

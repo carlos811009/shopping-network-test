@@ -1,12 +1,11 @@
-<h1 class="text-center mt-3">Login</h1>
-{{> message}}
-<form class="form-signin" action="/user/login" method="POST" style="width: 80%; margin:10px auto 0px;">
+<form class="form-signin" action="/login" method="POST" style="width: 80%; margin:10px auto 0px;">
   <div class="text-center mb-4">
     <h1 class="h3 mb-3 font-weight-normal">Login</h1>
   </div>
+  {{> message}}
   <div class="form-label-group">
     <label for="inputAccount">帳號</label>
-    <input type="text" name="account" class="form-control" placeholder="account" required>
+    <input type="text" name="account" class="form-control" placeholder="account"   required>
   </div>
   <div class="form-label-group">
     <label for="inputPassword">密碼</label>

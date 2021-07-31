@@ -1,9 +1,8 @@
-<h1 class="text-center mt-3">Register</h1>
-{{> message}}
 <form class="form-Login" action="/user/register" method="POST" style="width: 80%; margin:10px auto 0px;">
   <div class="text-center mb-4">
-    <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Register</h1>
   </div>
+  {{> message}}
   <div class="form-label-group">
     <label for="inputName">匿名</label>
     <input type="text" name="name" class="form-control" placeholder="Name" required autofocus>

@@ -1,5 +1,5 @@
 const { Users } = require('../models')
-const userController = {
+const userService = {
   register: async (req, res, callback) => {
     try {
       const { name, account, password, checkPassword } = req.body
@@ -30,4 +30,4 @@ const userController = {
   },
 }
 
-module.exports = userController
+module.exports = userService

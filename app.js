@@ -16,25 +16,33 @@ if (process.env !== 'production') {
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: 'hbs' }))
 app.set('view engine', 'hbs')
 
-//flash message
-// app.use(flash)
-// app.use(session)
 //body-params，extended:true
 app.use(express.urlencoded({ extended: true }))
 //set css-style-path
 app.use(express.static('public'))
 
-// app.use(session({
-//   secret: process.env.SECRET,
-//   resave: false,
-//   saveUninitialized: true
-// }))
-// // passport-local
-// require('./config/passport')(app)
+
+app.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true
+}))
+
+
+
+//flash message
+app.use(flash())
+
+//initialize passport
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated()
   res.locals.user = req.user
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.error_msg = req.flash('error_msg')
+  res.locals.error = req.flash('error')
   next()
 })
 

@@ -1,7 +1,7 @@
 <nav class="search-bar">
   <div class="search">
-    <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    <form class="d-flex" action="/product/search">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
   </div>
@@ -19,12 +19,12 @@
 
 </nav>
 <div class="container">
+  {{#each products}}
   <div class="product-container">
-    <div class="product-wrapper"
-      style="background-image: url('https://loremflickr.com/320/240/restaurant,food/?random=65.77512321288432');">
+    <div class="product-wrapper" style="background-image: url({{this.image}});">
       <div class="sub-wrapper">
-        <div class="name">Sleek Frozen Cheese</div>
-        <div class="price">NT 706</div>
+        <div class="name">{{this.name}}</div>
+        <div class="price">NT {{this.price}}</div>
       </div>
       <div class="product-btn">
         <form action="/" method="POST" class="form-btn info-icon">
@@ -40,155 +40,22 @@
       </div>
     </div>
   </div>
-  <div class="product-container">
-    <div class="product-wrapper"
-      style="background-image: url('https://loremflickr.com/320/240/restaurant,food/?random=65.77512321288432');">
-      <div class="sub-wrapper">
-        <div class="name">Sleek Frozen Cheese</div>
-        <div class="price">NT 706</div>
-      </div>
-      <div class="product-btn">
-        <form action="/" method="POST" class="form-btn info-icon">
-          <button type="submit" class="btn btn-light">
-            <i class="fas fa-info"></i>
-          </button>
-        </form>
-        <form action="/like/{{this.id}}" method="POST" class="form-btn heart-icon">
-          <button type="submit" class="btn btn-light">
-            <i class="far fa-heart"></i>
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="product-container">
-    <div class="product-wrapper"
-      style="background-image: url('https://loremflickr.com/320/240/restaurant,food/?random=65.77512321288432');">
-      <div class="sub-wrapper">
-        <div class="name">Sleek Frozen Cheese</div>
-        <div class="price">NT 706</div>
-      </div>
-      <div class="product-btn">
-        <form action="/" method="POST" class="form-btn info-icon">
-          <button type="submit" class="btn btn-light">
-            <i class="fas fa-info"></i>
-          </button>
-        </form>
-        <form action="/like/{{this.id}}" method="POST" class="form-btn heart-icon">
-          <button type="submit" class="btn btn-light">
-            <i class="far fa-heart"></i>
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="product-container">
-    <div class="product-wrapper"
-      style="background-image: url('https://loremflickr.com/320/240/restaurant,food/?random=65.77512321288432');">
-      <div class="sub-wrapper">
-        <div class="name">Sleek Frozen Cheese</div>
-        <div class="price">NT 706</div>
-      </div>
-      <div class="product-btn">
-        <form action="/" method="POST" class="form-btn info-icon">
-          <button type="submit" class="btn btn-light">
-            <i class="fas fa-info"></i>
-          </button>
-        </form>
-        <form action="/like/{{this.id}}" method="POST" class="form-btn heart-icon">
-          <button type="submit" class="btn btn-light">
-            <i class="far fa-heart"></i>
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="product-container">
-    <div class="product-wrapper"
-      style="background-image: url('https://loremflickr.com/320/240/restaurant,food/?random=65.77512321288432');">
-      <div class="sub-wrapper">
-        <div class="name">Sleek Frozen Cheese</div>
-        <div class="price">NT 706</div>
-      </div>
-      <div class="product-btn">
-        <form action="/" method="POST" class="form-btn info-icon">
-          <button type="submit" class="btn btn-light">
-            <i class="fas fa-info"></i>
-          </button>
-        </form>
-        <form action="/like/{{this.id}}" method="POST" class="form-btn heart-icon">
-          <button type="submit" class="btn btn-light">
-            <i class="far fa-heart"></i>
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="product-container">
-    <div class="product-wrapper"
-      style="background-image: url('https://loremflickr.com/320/240/restaurant,food/?random=65.77512321288432');">
-      <div class="sub-wrapper">
-        <div class="name">Sleek Frozen Cheese</div>
-        <div class="price">NT 706</div>
-      </div>
-      <div class="product-btn">
-        <form action="/" method="POST" class="form-btn info-icon">
-          <button type="submit" class="btn btn-light">
-            <i class="fas fa-info"></i>
-          </button>
-        </form>
-        <form action="/like/{{this.id}}" method="POST" class="form-btn heart-icon">
-          <button type="submit" class="btn btn-light">
-            <i class="far fa-heart"></i>
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="product-container">
-    <div class="product-wrapper"
-      style="background-image: url('https://loremflickr.com/320/240/restaurant,food/?random=65.77512321288432');">
-      <div class="sub-wrapper">
-        <div class="name">Sleek Frozen Cheese</div>
-        <div class="price">NT 706</div>
-      </div>
-      <div class="product-btn">
-        <form action="/" method="POST" class="form-btn info-icon">
-          <button type="submit" class="btn btn-light">
-            <i class="fas fa-info"></i>
-          </button>
-        </form>
-        <form action="/like/{{this.id}}" method="POST" class="form-btn heart-icon">
-          <button type="submit" class="btn btn-light">
-            <i class="far fa-heart"></i>
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="product-container">
-    <div class="product-wrapper"
-      style="background-image: url('https://loremflickr.com/320/240/restaurant,food/?random=65.77512321288432');">
-      <div class="sub-wrapper">
-        <div class="name">Sleek Frozen Cheese</div>
-        <div class="price">NT 706</div>
-      </div>
-      <div class="product-btn">
-        <form action="/" method="POST" class="form-btn info-icon">
-          <button type="submit" class="btn btn-light">
-            <i class="fas fa-info"></i>
-          </button>
-        </form>
-        <form action="/like/{{this.id}}" method="POST" class="form-btn heart-icon">
-          <button type="submit" class="btn btn-light">
-            <i class="far fa-heart"></i>
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-
-
-
-
+  {{/each}}
 </div>
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
