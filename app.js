@@ -15,25 +15,31 @@ if (process.env !== 'production') {
 //set view engine
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: 'hbs' }))
 app.set('view engine', 'hbs')
+
+//flash message
+// app.use(flash)
+// app.use(session)
 //body-params，extended:true
 app.use(express.urlencoded({ extended: true }))
 //set css-style-path
 app.use(express.static('public'))
 
-app.use(session({
-  secret: process.env.SECRET,
-  resave: false,
-  saveUninitialized: true
-}))
-// passport-local
-require('./config/passport')(app)
+// app.use(session({
+//   secret: process.env.SECRET,
+//   resave: false,
+//   saveUninitialized: true
+// }))
+// // passport-local
+// require('./config/passport')(app)
 
-//flash message
-app.use(flash)
-app.use(session)
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
+})
 
-require('./routes/index')(app)
-
+require('./routes')(app)
+module.exports = app
 app.listen(port, () => {
   console.log(`http://localhost:${port} is running`)
 })

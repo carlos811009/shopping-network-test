@@ -27,30 +27,16 @@
         </li>
       </ul>
     </nav>
+    {{#if isAuthenticated}}
     <label class="navbar-toggle-label" for="navbar-toggle">
       <span class="hamburger"></span>
     </label>
+    {{/if}}
+    {{#if isAuthenticated}}
+    <a href="/users/logout" class="btn btn-outline-light">Logout</a>
+    {{/if}}
   </header>
-  {{!-- <nav class="search-bar">
-    <div class="search">
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
-    <div class="category-wrapper">
-      <button type="buttom" class="category-btn">
-        <a class="category" href="/">#3C</a>
-      </button>
-      <button type="buttom" class="category-btn">
-        <a class="category" href="/">#家電</a>
-      </button>
-      <button type="buttom" class="category-btn">
-        <a class="category" href="/">#美食</a>
-      </button>
-    </div>
 
-  </nav> --}}
 
   {{{body}}}
 
