@@ -1,14 +1,8 @@
-<nav class="search-bar">
-  <div class="search">
-    <form class="d-flex" action="/product/search">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-  </div>
-  <div class="category-wrapper">
+<nav class="like-category-bar">
+  <div class="category-like-wrapper">
     {{#each category}}
-    <button type="buttom" class="category-btn">
-      <a class="category" href="/">{{this.name}}</a>
+    <button type="button" class="category-btn">
+      <a class="category" href="/user/like/search?search={{this.name}}">{{this.name}}</a>
     </button>
     {{/each}}
   </div>
@@ -49,7 +43,7 @@
   </div>
   {{/each}}
   {{else}}
-  <div class="search-msg">目前沒有找到相關的產品，趕快聯繫阿禎詢問吧～</div>
+  <div class="search-msg">目前沒有找到相關的最愛物品</div>
   {{/if}}
 </div>
 <nav aria-label="Page navigation example">

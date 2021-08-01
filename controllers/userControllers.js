@@ -26,6 +26,24 @@ const userController = {
         return res.redirect('back')
       }
     })
+  },
+  deleteLike: (req, res) => {
+    userService.deleteLike(req, res, (data) => {
+      if (data.status === 'success') {
+        req.flash('success_msg', data.message)
+        return res.redirect('back')
+      }
+    })
+  },
+  getUserLike: (req, res) => {
+    userService.getUserLike(req, res, (data) => {
+      return res.render('like', { products: data.products, category: data.category })
+    })
+  },
+  searchLikeProduct: (req, res) => {
+    userService.searchLikeProduct(req, res, (data) => {
+      return res.render('like', { products: data.products, category: data.category })
+    })
   }
 
 }

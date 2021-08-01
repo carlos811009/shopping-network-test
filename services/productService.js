@@ -36,18 +36,23 @@ const productionService = {
     try {
       const searchKey = req.query.search
       const category = await Category.findAll({ raw: true, nest: true })
-      const categoryProducts = await Category.findAll({
+      let products = await Product.findAll({
         raw: true,
         nest: true,
-        where: { name: searchKey },
-        include: [{ model: Product, attributes: { exclude: ["Products"] } }],
+        attributes: [
+          'id',
+          'name',
+          'image',
+          'price',
+          [Sequelize.literal(`(SELECT EXISTS(SELECT * FROM Likes WHERE UserId = ${req.user.id} AND ProductId = Product.id))`), 'isLiked'],],
+        include: [{ model: Category, where: { name: { [Op.substring]: searchKey } } }],
         order: [['createdAt', 'DESC']]
       })
-      if (categoryProducts.length !== 0) {
-        return callback({ categoryProducts, category })
+      if (products.length !== 0) {
+        return callback({ products, category })
       }
-      if (categoryProducts.length === 0) {
-        const products = await Product.findAll({
+      if (products.length === 0) {
+        products = await Product.findAll({
           raw: true,
           nest: true,
           where: {
@@ -56,6 +61,13 @@ const productionService = {
               [Op.substring]: searchKey,
             }
           },
+          attributes: [
+            'id',
+            'name',
+            'image',
+            'price',
+            [Sequelize.literal(`(SELECT EXISTS(SELECT * FROM Likes WHERE UserId = ${req.user.id} AND ProductId = Product.id))`), 'isLiked'],],
+          include: [Category],
           order: [["createdAt", "DESC"]]
         })
         return callback({ products, category })

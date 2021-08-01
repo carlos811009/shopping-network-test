@@ -1,4 +1,6 @@
-const { User, Like } = require('../models')
+const { User, Like, Product, Category } = require('../models')
+const { Op, Sequelize } = require('sequelize')
+
 const userService = {
   register: async (req, res, callback) => {
     try {
@@ -34,19 +36,76 @@ const userService = {
         UserId: req.user.id,
         ProductId: Number(req.params.id)
       })
-      if (like) { return callback({ status: 'success', message: '新增喜歡成功' }) }
+      if (like) { return callback({ status: 'success', message: '新增成功' }) }
       callback({ status: 'error', message: '新增失敗' })
     } catch (err) {
       console.log(err)
     }
   },
-  removeLike: async (req, res, callback) => {
+  deleteLike: async (req, res, callback) => {
     try {
-
+      const removeLike = await Like.destroy({
+        where: {
+          UserId: req.user.id,
+          ProductId: Number(req.params.id)
+        }
+      })
+      return callback({ status: 'success', message: '移除成功' })
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  getUserLike: async (req, res, callback) => {
+    try {
+      const products = await Product.findAll({
+        raw: true,
+        nest: true,
+        attributes: [
+          'id',
+          'name',
+          'image',
+          'price',
+          [Sequelize.literal(`(SELECT EXISTS(SELECT * FROM Likes WHERE UserId = ${req.user.id} AND ProductId = Product.id))`), 'isLiked'],
+        ],
+        include: [{ model: User, as: 'Users', where: { id: req.user.id } }]
+      })
+      const category = await Category.findAll({
+        raw: true,
+        nest: true
+      })
+      return callback({ products, category })
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  searchLikeProduct: async (req, res, callback) => {
+    try {
+      console.log(req.query.search)
+      const products = await Product.findAll({
+        raw: true,
+        nest: true,
+        attributes: [
+          'id',
+          'name',
+          'image',
+          'price',
+          [Sequelize.literal(`(SELECT EXISTS(SELECT * FROM Likes WHERE UserId = ${req.user.id} AND ProductId = Product.id))`), 'isLiked'],
+        ],
+        include: [
+          { model: User, as: 'Users', where: { id: req.user.id } },
+          { model: Category, where: { name: req.query.search } }
+        ]
+      })
+      const category = await Category.findAll({
+        raw: true,
+        nest: true
+      })
+      return callback({ products, category })
     } catch (err) {
       console.log(err)
     }
   }
+
 }
 
 module.exports = userService
