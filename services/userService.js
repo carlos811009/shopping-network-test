@@ -39,6 +39,13 @@ const userService = {
     } catch (err) {
       console.log(err)
     }
+  },
+  removeLike: async (req, res, callback) => {
+    try {
+
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 

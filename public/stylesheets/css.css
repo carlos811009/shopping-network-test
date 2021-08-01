@@ -333,6 +333,7 @@ header {
   .category{
     all:unset;
     line-height: 30px;
+    font-weight: 700;
   }
   .d-flex{
     all:unset;

@@ -1,5 +1,5 @@
-const { Product, Category } = require('../models')
-const { Op } = require('sequelize')
+const { Product, Category, User, Like } = require('../models')
+const { Op, Sequelize } = require('sequelize')
 
 const limitCount = 12
 const productionService = {
@@ -11,9 +11,17 @@ const productionService = {
       const products = await Product.findAll({
         raw: true,
         nest: true,
+        attributes: [
+          'id',
+          'name',
+          'image',
+          'price',
+          [Sequelize.literal(`(SELECT EXISTS(SELECT * FROM Likes WHERE UserId = ${req.user.id} AND ProductId = Product.id))`), 'isLiked'],
+        ],
         limit: limitCount,
         offset: limitCount * page,
-        order: [['createdAt', 'DESC']]
+        order: [['createdAt', 'DESC']],
+
       })
       const category = await Category.findAll({
         raw: true,

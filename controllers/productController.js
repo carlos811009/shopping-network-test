@@ -4,6 +4,7 @@ const productService = require('../services/productService')
 const productController = {
   getAllProducts: (req, res) => {
     productService.getAllProducts(req, res, (data) => {
+      console.log(data.products[0])
       return res.render('index', { products: data.products, category: data.category })
     })
   },
