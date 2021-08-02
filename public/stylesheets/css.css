@@ -257,10 +257,10 @@ header {
   font-weight: 800;
 }
 
-.info-icon{
+/* .info-icon{
   visibility: hidden;
   position: absolute;
-}
+} */
 
 .heart-icon{
   position: absolute;
@@ -396,4 +396,23 @@ header {
   grid-area: search-msg;
   text-align: center;
 }
+}
+
+
+/* modal */
+.modal-body{
+  width:80%;
+  margin: 0px auto;
+}
+
+.productImg{  
+  text-align: center;
+}
+
+.info{
+  margin:20px 0px
+}
+
+.info-item{
+  margin:10px 0px
 }

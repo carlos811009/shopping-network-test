@@ -16,8 +16,10 @@ const productionService = {
           'name',
           'image',
           'price',
+          'description',
           [Sequelize.literal(`(SELECT EXISTS(SELECT * FROM Likes WHERE UserId = ${req.user.id} AND ProductId = Product.id))`), 'isLiked'],
         ],
+        include: [Category],
         limit: limitCount,
         offset: limitCount * page,
         order: [['createdAt', 'DESC']],
@@ -44,6 +46,7 @@ const productionService = {
           'name',
           'image',
           'price',
+          'description',
           [Sequelize.literal(`(SELECT EXISTS(SELECT * FROM Likes WHERE UserId = ${req.user.id} AND ProductId = Product.id))`), 'isLiked'],],
         include: [{ model: Category, where: { name: { [Op.substring]: searchKey } } }],
         order: [['createdAt', 'DESC']]

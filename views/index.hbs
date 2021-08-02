@@ -23,11 +23,9 @@
         <div class="price">NT {{this.price}}</div>
       </div>
       <div class="product-btn">
-        <form action="/" method="POST" class="form-btn info-icon">
-          <button type="submit" class="btn btn-light">
-            <i class="fas fa-info"></i>
-          </button>
-        </form>
+        <button type="submit" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#productInfo{{this.id}}">
+          <i class="fas fa-info"></i>
+        </button>
 
         {{#if this.isLiked}}
         <form action="/user/like/{{this.id}}?_method=DELETE" method="POST" class="form-btn heart-icon">
@@ -42,7 +40,45 @@
           </button>
         </form>
         {{/if}}
+      </div>
+    </div>
+  </div>
+  {{!-- model --}}
+  <div class="modal fade" id="productInfo{{this.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{this.name}}</h5>
+        </div>
+        <div class="modal-body">
+          <div class="productImg">
+            <img src="{{this.image}}" alt="">
+          </div>
+          <div class="info">
+            <div class="info-item"><strong>名稱：</strong>{{this.name}}</div>
+            <div class="info-item"><strong>類別：</strong>{{this.Category.name}}</div>
+            <div class="info-item"><strong>價格：</strong>NT {{this.price}}</div>
+            <div class="info-item"><strong>簡介：</strong>{{this.description}}</div>
+          </div>
 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          {{#if this.isLiked}}
+          <form action="/user/like/{{this.id}}?_method=DELETE" method="POST" class="form-btn heart-icon">
+            <button type="submit" class="btn btn-light">
+              <i class="fas fa-heart" style="color: red;"></i>
+            </button>
+          </form>
+          {{else}}
+          <form action="/user/like/{{this.id}}" method="POST" class="form-btn heart-icon">
+            <button type="submit" class="btn btn-light">
+              <i class="far fa-heart"></i>
+            </button>
+          </form>
+          {{/if}}
+        </div>
       </div>
     </div>
   </div>
