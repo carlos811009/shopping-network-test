@@ -9,6 +9,15 @@ const adminService = {
     } catch (err) {
       console.log(err)
     }
+  },
+  deleteProduct: async (req, res, callback) => {
+    try {
+      const deleteProduct = await Product.findByPk((req.params.id))
+      await deleteProduct.destroy()
+      return callback({ status: "success", message: "產品刪除成功" })
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 

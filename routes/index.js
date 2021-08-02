@@ -6,8 +6,8 @@ const { authenticator } = require('../middleware/auth')
 
 
 module.exports = (app) => {
-  app.use('/user', user)
-  app.use('/admin', admin)
+  app.use('/user', authenticator, user)
+  app.use('/admin', authenticator, admin)
   app.use('/product', authenticator, product)
   app.use('/', page)
 }

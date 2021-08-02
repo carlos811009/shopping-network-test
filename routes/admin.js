@@ -9,5 +9,7 @@ router.post('/', (req, res) => {
   console.log('params', req.params)
 })
 
+router.delete('/product/:id', adminController.deleteProduct)
+
 
 module.exports = router
