@@ -416,3 +416,36 @@ header {
 .info-item{
   margin:10px 0px
 }
+
+/* admin page */
+.admin-search-container{
+  width: 90%;
+  margin:0px auto;
+}
+.products-total{
+  margin: 10px auto;
+  text-align: center;
+  font-weight: 700;
+}
+
+@media screen and (min-width: 768px){
+  .admin-search-container{
+    width: 90%;
+    margin:60px auto 20px;
+    height: 60px;
+  }
+
+  .admin-search{
+    margin-bottom:10px
+  }
+  .products-total{
+    all:unset;
+    text-align: center;
+    font-weight: 700;
+    text-align: left;
+  }
+  .table{
+    width: 90%;
+    margin:0px auto;
+  }
+}

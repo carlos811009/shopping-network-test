@@ -1,4 +1,74 @@
-<form action="/admin" method="post" style="margin-top: 100px;">
+<div class="admin-search-container">
+  <div class="admin-search">
+    <form class="d-flex" action="/product/search">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+  </div>
+  <div class="products-total"> 總共有 {{count}} 個產品</div>
+</div>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Category</th>
+      <th scope="col">Name</th>
+      <th scope="col">price</th>
+      <th scope="col">#</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each products}}
+    <tr>
+      <th scope="row">{{this.id}}</th>
+      <td>{{this.Category.name}}</td>
+      <td>{{this.name}}</td>
+      <td>NT {{this.price}}</td>
+      <td>
+        <button type="submit" class="btn btn-light px-0" data-bs-toggle="modal"
+          data-bs-target="#productInfo{{this.id}}">Show</button>
+        <button type="button" class="btn btn-link px-0">
+          <a href="/admin/restaurants/{{this.id}}/edit">
+            Edit
+          </a>
+        </button>
+        <form action="/admin/restaurants/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+          <button type="submit" class="btn btn-link px-0">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {{!-- model --}}
+    <div class="modal fade" id="productInfo{{this.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{this.name}}</h5>
+          </div>
+          <div class="modal-body">
+            <div class="productImg">
+              <img src="{{this.image}}" alt="">
+            </div>
+            <div class="info">
+              <div class="info-item"><strong>名稱：</strong>{{this.name}}</div>
+              <div class="info-item"><strong>類別：</strong>{{this.Category.name}}</div>
+              <div class="info-item"><strong>價格：</strong>NT {{this.price}}</div>
+              <div class="info-item"><strong>簡介：</strong>{{this.description}}</div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </tbody>
+</table>
+
+{{!-- <form action="/admin" method="post" style="margin-top: 100px;">
   <div class="admin-wrapper-img">
     <label for="productImage">產品圖片</label>
     <input type="text" name="image" id="productImage">
@@ -17,4 +87,4 @@
   </div>
 
   <button type="submit">建立</button>
-</form>
+</form> --}}
