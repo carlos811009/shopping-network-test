@@ -1,40 +1,27 @@
 <div class="admin-search-container">
-  <div class="admin-search">
-    <form class="d-flex" action="/admin/search/page/1">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-  </div>
-  <div class="products-total"> 總共有 {{count}} 個產品</div>
-  <div class="products-total"> 第 {{page}} 頁</div>
+  <div class="edit-category"><a href="/admin/create/category">新增類別</a> </div>
 </div>
 
 <table class="table">
   <thead class="thead-dark">
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">Category</th>
       <th scope="col">Name</th>
-      <th scope="col">price</th>
       <th scope="col">#</th>
     </tr>
   </thead>
   <tbody>
-    {{#each products}}
+    {{#each categories}}
     <tr>
       <th scope="row">{{this.id}}</th>
-      <td>{{this.Category.name}}</td>
       <td>{{this.name}}</td>
-      <td>NT {{this.price}}</td>
       <td>
-        <button type="submit" class="px-0 show-info" data-bs-toggle="modal"
-          data-bs-target="#productInfo{{this.id}}">Show</button>
         <button type="button" class="px-0 edit">
-          <a href="/admin/product/{{this.id}}/edit">
+          <a href="/admin/category/{{this.id}}/edit">
             Edit
           </a>
         </button>
-        <form action="/admin/product/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+        <form action="/admin/category/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
           <button type="submit" class="px-0 delete">Delete</button>
         </form>
       </td>
@@ -67,22 +54,3 @@
     {{/each}}
   </tbody>
 </table>
-
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="/admin/search/page/{{pre}}?search={{searchKey}}" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    {{#each totalPage}}
-    <li class="page-item {{#ifSelect this ../page}}active{{/ifSelect}}"><a class="page-link"
-        href="/admin/search/page/{{this}}?search={{../searchKey}}">{{this}}</a></li>
-    {{/each}}
-    <li class="page-item">
-      <a class="page-link" href="/admin/search/page/{{next}}?search={{searchKey}}" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>

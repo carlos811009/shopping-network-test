@@ -103,8 +103,9 @@ const productionService = {
         include: [{ model: Category, where: { name: { [Op.substring]: searchKey } } }],
         attributes: [
           'id', 'name', 'image', 'description', 'price',
-          [Sequelize.literal(`(SELECT COUNT(*) FROM Likes WHERE ProductId = Product.id)`), 'likes']
+          [Sequelize.literal(`(SELECT COUNT(*) FROM Likes WHERE ProductId = Product.id)`), 'likes'],
           //attribute => likes 一定要s
+          [Sequelize.literal(`(SELECT EXISTS(SELECT * FROM Likes WHERE UserId = ${req.user.id} AND ProductId = Product.id))`), 'isLiked'],
         ],
         order: [[Sequelize.literal('likes'), 'DESC']],
         limit: 6,

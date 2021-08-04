@@ -110,7 +110,50 @@ const adminService = {
     } catch (err) {
       console.log(err)
     }
-  }
+  },
+  editCategoryPage: async (req, res, callback) => {
+    const isCategory = true
+    return callback(isCategory)
+  },
+  postCategory: async (req, res, callback) => {
+    try {
+      const { name } = req.body
+      await Category.create({
+        name,
+      })
+      callback({ status: 'success', message: `新類別『${name}』創建成功` })
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  getCategories: async (req, res, callback) => {
+    try {
+      const categories = await Category.findAll({ raw: true, nest: true })
+      const isCategory = true
+      return callback({ categories, isCategory })
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  getCategory: async (req, res, callback) => {
+    try {
+      const category = await Category.findByPk(req.params.id, { raw: true, nest: true })
+      const isCategory = true
+      return callback({ category, isCategory })
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  deleteCategory: async (req, res, callback) => {
+    try {
+      const category = await Category.findByPk(req.params.id)
+      await category.destroy()
+      return callback({ status: 'success', message: '刪除成功' })
+    } catch (err) {
+      console.log(err)
+    }
+  },
+
 }
 
 module.exports = adminService

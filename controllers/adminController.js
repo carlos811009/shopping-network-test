@@ -29,9 +29,35 @@ const adminController = {
   },
   searchProducts: (req, res) => {
     adminService.searchProducts(req, res, (data) => {
-      console.log('totalPage', data.totalPage)
-      console.log('next', data.next)
-      return res.render('adminSearch', { count: data.products.count, products: data.products.rows, totalPage: data.totalPage, pre: data.pre, next: data.next, page: data.page, searchKey: data.searchKey })
+      const isAdminSearch = true
+      return res.render('admin', { count: data.products.count, products: data.products.rows, totalPage: data.totalPage, pre: data.pre, next: data.next, page: data.page, searchKey: data.searchKey, isAdminSearch })
+    })
+  },
+  editCategoryPage: (req, res) => {
+    adminService.editCategoryPage(req, res, (data) => {
+      return res.render('edit', { isCategory: data })
+    })
+  },
+  postCategory: (req, res) => {
+    adminService.postCategory(req, res, (data) => {
+      req.flash('success_msg', data.message)
+      return res.redirect('back')
+    })
+  },
+  getCategories: (req, res) => {
+    adminService.getCategories(req, res, (data) => {
+      return res.render('adminCategory', { categories: data.categories })
+    })
+  },
+  getCategory: (req, res) => {
+    adminService.getCategory(req, res, (data) => {
+      return res.render('edit', { category: data.category, isCategory: data.isCategory })
+    })
+  },
+  deleteCategory: (req, res) => {
+    adminService.deleteCategory(req, res, (data) => {
+      req.flash('success_msg', data.message)
+      return res.redirect('back')
     })
   }
 }

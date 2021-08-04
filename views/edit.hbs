@@ -1,3 +1,17 @@
+{{#if isCategory}}
+<div class="edit-container" style="margin-top:60px">
+  <form action="/admin/create/category" method="POST">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" {{#if
+        category}}value={{category.name}}{{/if}}>
+    </div>
+    <a class="" href="/admin/category">上一頁</a>
+    <button type="submit" class="btn btn-primary">確認</button>
+  </form>
+</div>
+{{#if
+{{else}}
 <div class="edit-container" style="margin-top:60px">
   <form action="/admin/product/{{product.id}}/edit?_method=PUT" method="POST" enctype="multipart/form-data">
     <div class="form-group">
@@ -31,3 +45,4 @@
     <button type="submit" class="btn btn-primary">確認</button>
   </form>
 </div>
+{{/if}}

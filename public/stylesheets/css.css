@@ -423,6 +423,7 @@ header {
   width: 90%;
   margin:0px auto;
 }
+.edit-category,
 .products-total{
   margin: 10px auto;
   text-align: center;
@@ -465,7 +466,6 @@ header {
   .admin-search-container{
     width: 90%;
     margin:60px auto 20px;
-    height: 60px;
   }
 
   .admin-search{
@@ -476,11 +476,20 @@ header {
     text-align: center;
     font-weight: 700;
     text-align: left;
+    margin-right:10px
   }
   .table{
     width: 90%;
     margin:0px auto;
   }
+  .edit-category{
+    all:unset;
+    text-align: center;
+    font-weight: 700;
+    text-align: left;
+    margin:0px 10px;
+  }
+
 }
 
 /* topProduct page */

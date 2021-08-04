@@ -5,8 +5,14 @@
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
   </div>
+  {{#if isAdminSearch}}
+  <div class="products-total"> 搜尋出 {{count}} 個產品</div>
+  {{else}}
   <div class="products-total"> 總共有 {{count}} 個產品</div>
+  {{/if}}
+
   <div class="products-total"> 第 {{page}} 頁</div>
+  <div class="edit-category"><a href="/admin/category">類別</a> </div>
 </div>
 
 <table class="table">
@@ -68,6 +74,26 @@
   </tbody>
 </table>
 
+{{#if isAdminSearch}}
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="/admin/search/page/{{pre}}?search={{searchKey}}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    {{#each totalPage}}
+    <li class="page-item {{#ifSelect this ../page}}active{{/ifSelect}}"><a class="page-link"
+        href="/admin/search/page/{{this}}?search={{../searchKey}}">{{this}}</a></li>
+    {{/each}}
+    <li class="page-item">
+      <a class="page-link" href="/admin/search/page/{{next}}?search={{searchKey}}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+{{else}}
 <nav aria-label="Page navigation example">
   <ul class="pagination">
     <li class="page-item">
@@ -86,3 +112,4 @@
     </li>
   </ul>
 </nav>
+{{/if}}
