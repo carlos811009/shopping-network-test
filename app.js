@@ -13,10 +13,10 @@ if (process.env !== 'production') {
 }
 
 //set view engine
-app.engine('hbs', exphbs({ defaultLayout: 'main', extname: 'hbs' }))
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: 'hbs', helpers: require('./config/handlebars-helpers') }))
 app.set('view engine', 'hbs')
 
-//body-params，extended:true
+//body-body，extended:true
 app.use(express.urlencoded({ extended: true }))
 //set css-style-path
 app.use(express.static('public'))

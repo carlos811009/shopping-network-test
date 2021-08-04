@@ -336,6 +336,7 @@ header {
   .category{
     all:unset;
     line-height: 30px;
+    color: rgb(59, 98, 131);
     font-weight: 700;
   }
   .d-flex{
@@ -426,6 +427,38 @@ header {
   margin: 10px auto;
   text-align: center;
   font-weight: 700;
+}
+.delete{
+  background-color:rgba(245, 76, 9, 1);
+  border:1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  width:60px;
+  color:white
+}
+.edit{
+  background-color:rgba(0, 78, 151,1);
+  border:1px solid rgba(0, 0, 0, 0.3);
+  width:40px;
+  border-radius: 5px;
+}
+.edit a{
+  color:white
+}
+
+.show-info{
+  background-color:rgba(0, 0, 0,0.5);
+  border:1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  width:60px;
+  color:white
+}
+
+.productImg{
+  width: 100%;
+  height: 200px;
+    background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 @media screen and (min-width: 768px){

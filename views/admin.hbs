@@ -26,15 +26,15 @@
       <td>{{this.name}}</td>
       <td>NT {{this.price}}</td>
       <td>
-        <button type="submit" class="btn btn-light px-0" data-bs-toggle="modal"
+        <button type="submit" class="px-0 show-info" data-bs-toggle="modal"
           data-bs-target="#productInfo{{this.id}}">Show</button>
-        <button type="button" class="btn btn-link px-0">
-          <a href="/admin/restaurants/{{this.id}}/edit">
+        <button type="button" class="px-0 edit">
+          <a href="/admin/product/{{this.id}}/edit">
             Edit
           </a>
         </button>
         <form action="/admin/product/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
-          <button type="submit" class="btn btn-link px-0">Delete</button>
+          <button type="submit" class="px-0 delete">Delete</button>
         </form>
       </td>
     </tr>
@@ -47,8 +47,8 @@
             <h5 class="modal-title" id="exampleModalLabel">{{this.name}}</h5>
           </div>
           <div class="modal-body">
-            <div class="productImg">
-              <img src="{{this.image}}" alt="">
+            <div class="productImg" style="background-image: url('{{this.image}}');">
+              {{!-- <img src="{{this.image}}" alt=""> --}}
             </div>
             <div class="info">
               <div class="info-item"><strong>名稱：</strong>{{this.name}}</div>
