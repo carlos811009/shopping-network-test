@@ -4,16 +4,12 @@ const adminController = require('../controllers/adminController')
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
 
-router.get('/', adminController.getAllProducts)
+router.get('/', (req, res) => { return res.redirect('/admin/page/1') })
+router.get('/search/page/:page', adminController.searchProducts)
+router.get('/page/:page', adminController.getAllProducts)
 router.get('/product/:id/edit', adminController.getProduct)
 
 router.put('/product/:id/edit', upload.single('image'), adminController.putProduct)
-
-// router.post('/', (req, res) => {
-//   console.log('body', req.body)
-//   console.log('params', req.params)
-// })
-
 router.delete('/product/:id', adminController.deleteProduct)
 
 module.exports = router

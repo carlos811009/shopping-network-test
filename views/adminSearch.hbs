@@ -71,16 +71,16 @@
 <nav aria-label="Page navigation example">
   <ul class="pagination">
     <li class="page-item">
-      <a class="page-link" href="/admin/page/{{pre}}" aria-label="Previous">
+      <a class="page-link" href="/admin/search/page/{{pre}}?search={{searchKey}}" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
     {{#each totalPage}}
     <li class="page-item {{#ifSelect this ../page}}active{{/ifSelect}}"><a class="page-link"
-        href="/admin/page/{{this}}">{{this}}</a></li>
+        href="/admin/search/page/{{this}}?search={{../searchKey}}">{{this}}</a></li>
     {{/each}}
     <li class="page-item">
-      <a class="page-link" href="/admin/page/{{next}}" aria-label="Next">
+      <a class="page-link" href="/admin/search/page/{{next}}?search={{searchKey}}" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>

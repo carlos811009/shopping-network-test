@@ -4,6 +4,7 @@ const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
+const limitCount = 30
 
 const imgurUpload = (filePath) => {
   return new Promise((resolve, reject) => {
@@ -17,8 +18,13 @@ const imgurUpload = (filePath) => {
 const adminService = {
   getAllProducts: async (req, res, callback) => {
     try {
-      const products = await Product.findAndCountAll({ raw: true, nest: true, include: [Category] })
-      return callback(products)
+      const page = Number(req.params.page) || 1
+      const products = await Product.findAndCountAll({ raw: true, nest: true, include: [Category], limit: limitCount, offset: limitCount * (page - 1) })
+      const pages = Math.ceil(products.count / limitCount)
+      const totalPage = Array.from({ length: pages }).map((item, index) => { return index + 1 })
+      const pre = page - 1 < 1 ? 1 : page - 1
+      const next = page + 1 > pages ? pages : page + 1
+      return callback({ products, pre, next, totalPage, page })
     } catch (err) {
       console.log(err)
     }
@@ -50,7 +56,6 @@ const adminService = {
       if (file) {
         imgur.setClientID(IMGUR_CLIENT_ID)
         const img = await imgurUpload(file.path)
-        // console.log(img)
         await product.update({
           name,
           CategoryId: category,
@@ -67,9 +72,41 @@ const adminService = {
           file: req.user.image || ''
         })
       }
-      console.log(product)
       return callback({ status: 'success', message: '產品修改成功' })
 
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  searchProducts: async (req, res, callback) => {
+    try {
+      const searchKey = req.query.search
+      const page = Number(req.params.page) || 1
+      products = await Product.findAndCountAll({
+        raw: true,
+        nest: true,
+        where: {
+          name:
+          {
+            [Op.substring]: searchKey,
+          }
+        },
+        attributes: [
+          'id',
+          'name',
+          'image',
+          'price',
+          [Sequelize.literal(`(SELECT EXISTS(SELECT * FROM Likes WHERE UserId = ${req.user.id} AND ProductId = Product.id))`), 'isLiked'],],
+        include: [Category],
+        order: [["createdAt", "DESC"]],
+        limit: limitCount,
+        offset: limitCount * (page - 1)
+      })
+      const pages = Math.ceil(products.count / limitCount)
+      const totalPage = Array.from({ length: pages }).map((item, index) => { return index + 1 })
+      const pre = page - 1 < 1 ? 1 : page - 1
+      const next = page + 1 > pages ? pages : page + 1
+      return callback({ products, pre, next, totalPage, page, searchKey })
     } catch (err) {
       console.log(err)
     }
