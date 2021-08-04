@@ -1,6 +1,6 @@
 const { User, Like, Product, Category } = require('../models')
 const { Op, Sequelize } = require('sequelize')
-
+const limitCount = 12
 const userService = {
   register: async (req, res, callback) => {
     try {
@@ -57,7 +57,8 @@ const userService = {
   },
   getUserLike: async (req, res, callback) => {
     try {
-      const products = await Product.findAll({
+      const page = Number(req.params.page)
+      const products = await Product.findAndCountAll({
         raw: true,
         nest: true,
         attributes: [
@@ -67,21 +68,28 @@ const userService = {
           'price',
           [Sequelize.literal(`(SELECT EXISTS(SELECT * FROM Likes WHERE UserId = ${req.user.id} AND ProductId = Product.id))`), 'isLiked'],
         ],
-        include: [{ model: User, as: 'Users', where: { id: req.user.id } }]
+        include: [{ model: User, as: 'Users', where: { id: req.user.id } }],
+        limit: limitCount,
+        offset: limitCount * (page - 1)
       })
+      const pages = Math.ceil(products.count / limitCount)
+      const totalPage = Array.from({ length: pages }).map((item, index) => { return index + 1 })
+      const pre = page - 1 < 1 ? 1 : page - 1
+      const next = page + 1 > pages ? pages : page + 1
       const category = await Category.findAll({
         raw: true,
         nest: true
       })
-      return callback({ products, category })
+      return callback({ products, pre, next, totalPage, page, category })
     } catch (err) {
       console.log(err)
     }
   },
   searchLikeProduct: async (req, res, callback) => {
     try {
-      console.log(req.query.search)
-      const products = await Product.findAll({
+      const searchKey = req.query.search
+      const page = Number(req.params.page)
+      const products = await Product.findAndCountAll({
         raw: true,
         nest: true,
         attributes: [
@@ -93,14 +101,20 @@ const userService = {
         ],
         include: [
           { model: User, as: 'Users', where: { id: req.user.id } },
-          { model: Category, where: { name: req.query.search } }
-        ]
+          { model: Category, where: { name: searchKey } }
+        ],
+        limit: limitCount,
+        offset: limitCount * (page - 1)
       })
+      const pages = Math.ceil(products.count / limitCount)
+      const totalPage = Array.from({ length: pages }).map((item, index) => { return index + 1 })
+      const pre = page - 1 < 1 ? 1 : page - 1
+      const next = page + 1 > pages ? pages : page + 1
       const category = await Category.findAll({
         raw: true,
         nest: true
       })
-      return callback({ products, category })
+      return callback({ products, pre, next, totalPage, page, category, searchKey })
     } catch (err) {
       console.log(err)
     }

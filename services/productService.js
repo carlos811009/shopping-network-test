@@ -60,7 +60,6 @@ const productionService = {
       let totalPage = Array.from({ length: pages }).map((item, index) => { return index + 1 })
       const pre = page - 1 < 1 ? 1 : page - 1
       let next = page + 1 > pages ? pages : page + 1
-      console.log('out:', products)
       if (products.rows.length !== 0) {
         return callback({ products, pre, next, totalPage, page, category, searchKey })
       }
@@ -85,7 +84,6 @@ const productionService = {
           limit: limitCount,
           offset: limitCount * (page - 1)
         })
-        console.log('in: ', products)
         pages = Math.ceil(products.count / limitCount)
         totalPage = Array.from({ length: pages }).map((item, index) => { return index + 1 })
         next = page + 1 > pages ? pages : page + 1

@@ -37,12 +37,13 @@ const userController = {
   },
   getUserLike: (req, res) => {
     userService.getUserLike(req, res, (data) => {
-      return res.render('like', { products: data.products, category: data.category })
+      return res.render('like', { products: data.products.rows, category: data.category, pre: data.pre, next: data.next, page: Number(data.page), totalPage: data.totalPage })
     })
   },
   searchLikeProduct: (req, res) => {
     userService.searchLikeProduct(req, res, (data) => {
-      return res.render('like', { products: data.products, category: data.category })
+      const searchLike = true
+      return res.render('like', { products: data.products.rows, category: data.category, searchLike, totalPage: data.totalPage, page: data.page, searchKey: data.searchKey, next: data.next, pre: data.pre })
     })
   }
 
