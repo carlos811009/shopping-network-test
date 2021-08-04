@@ -1,4 +1,4 @@
-const { Product, Category, User, Like } = require('../models')
+const { Product, Category, User, Like, sequelize } = require('../models')
 const { Op, Sequelize } = require('sequelize')
 
 const limitCount = 12
@@ -78,6 +78,7 @@ const productionService = {
             'name',
             'image',
             'price',
+            'description',
             [Sequelize.literal(`(SELECT EXISTS(SELECT * FROM Likes WHERE UserId = ${req.user.id} AND ProductId = Product.id))`), 'isLiked'],],
           include: [Category],
           order: [["createdAt", "DESC"]],
@@ -89,6 +90,27 @@ const productionService = {
         next = page + 1 > pages ? pages : page + 1
         return callback({ products, pre, next, totalPage, page, category, searchKey })
       }
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  topProduct: async (req, res, callback) => {
+    try {
+      const searchKey = req.query.search || ''
+      const products = await Product.findAll({
+        raw: true,
+        nest: true,
+        include: [{ model: Category, where: { name: { [Op.substring]: searchKey } } }],
+        attributes: [
+          'id', 'name', 'image', 'description', 'price',
+          [Sequelize.literal(`(SELECT COUNT(*) FROM Likes WHERE ProductId = Product.id)`), 'likes']
+          //attribute => likes 一定要s
+        ],
+        order: [[Sequelize.literal('likes'), 'DESC']],
+        limit: 6,
+      })
+      const category = await Category.findAll({ raw: true, nest: true })
+      return callback({ products, category, searchKey })
     } catch (err) {
       console.log(err)
     }

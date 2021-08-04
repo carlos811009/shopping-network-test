@@ -1,15 +1,23 @@
 <nav class="like-category-bar">
   <div class="category-like-wrapper">
+    <button type="button" class="category-btn">
+      <a class="category" href="/product/top">總排行</a>
+    </button>
     {{#each category}}
     <button type="button" class="category-btn">
-      <a class="category" href="/user/like/search/page/1?search={{this.name}}">{{this.name}}</a>
+      <a class="category" href="/product/top?search={{this.name}}">{{this.name}}</a>
     </button>
     {{/each}}
   </div>
 
 </nav>
+{{#if searchKey}}
+<div class="topTitle">{{searchKey}}排行</div>
+{{else}}
+<div class="topTitle">總排名</div>
+{{/if}}
 <div class="container">
-  {{#if products.length}}
+
   {{#each products}}
   <div class="product-container">
     <div class="product-wrapper" style="background-image: url({{this.image}});">
@@ -77,47 +85,4 @@
     </div>
   </div>
   {{/each}}
-  {{else}}
-  <div class="search-msg">目前沒有找到相關的最愛物品</div>
-  {{/if}}
 </div>
-{{#if searchLike}}
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="/user/like/search/page/{{pre}}?search={{searchKey}}" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    {{#each totalPage}}
-    <li class="page-item {{#ifSelect this ../page}}active{{/ifSelect}}"><a class="page-link"
-        href="/user/like/search/page/{{this}}?search={{../searchKey}}">{{this}}</a></li>
-    {{/each}}
-    <li class="page-item">
-      <a class="page-link" href="/user/like/search/page/{{next}}?search={{searchKey}}" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
-{{else}}
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="/user/like/page/{{pre}}" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    {{#each totalPage}}
-    <li class="page-item {{#ifSelect this ../page}}active{{/ifSelect}}"><a class="page-link"
-        href="/user/like/page/{{this}}">{{this}}</a></li>
-    {{/each}}
-    <li class="page-item">
-      <a class="page-link" href="/user/like/page/{{next}}" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
-
-{{/if}}
