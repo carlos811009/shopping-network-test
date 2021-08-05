@@ -421,13 +421,18 @@ header {
 /* admin page */
 .admin-search-container{
   width: 90%;
-  margin:0px auto;
+  margin:60px auto 10px;
 }
-.edit-category,
+
 .products-total{
   margin: 10px auto;
   text-align: center;
   font-weight: 700;
+}
+.edit-category{
+  text-align: center;
+  font-weight: 700;
+  text-align: start;
 }
 .delete{
   background-color:rgba(245, 76, 9, 1);
