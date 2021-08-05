@@ -4,8 +4,9 @@ const faker = require('faker')
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('Products',
-      Array.from({ length: 50 }).map(d =>
+      Array.from({ length: 50 }).map((d, index) =>
       ({
+        id: 5 + (index * 10),
         name: faker.commerce.productName(),
         image: `https://loremflickr.com/320/240/restaurant,food/?random=${Math.random() * 100}`,
         description: faker.commerce.productDescription(),
