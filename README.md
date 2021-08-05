@@ -63,10 +63,18 @@ MySQL
 
 # 使用專案
 
-## 下載
-git clone https://github.com/carlos811009/shopping-network-test.git
+## terminal執行
+- git clone https://github.com/carlos811009/shopping-network-test.git
+- npm install express
 
-## 安裝步驟
+## 資料庫名稱
+- shopping
 
+## 建立種子資料
+- npx sequelize db:migrate
+- npx sequelize db:seed:all
+
+## 執行
+- npm run dev
 
 
