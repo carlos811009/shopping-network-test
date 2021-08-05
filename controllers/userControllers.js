@@ -3,8 +3,14 @@ const userService = require('../services/userService')
 const userController = {
   register: (req, res) => {
     userService.register(req, res, (data) => {
-      req.flash(data)
-      return res.redirect('/login')
+      if (data.status === 'success') {
+        req.flash('success_msg', data.message)
+        return res.redirect('back')
+      }
+      if (data.status === 'error') {
+        req.flash('error_msg', data.message)
+        return res.redirect('back')
+      }
     })
   },
   login: (req, res) => {

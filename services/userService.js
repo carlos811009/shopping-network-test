@@ -1,11 +1,13 @@
 const { User, Like, Product, Category } = require('../models')
 const { Op, Sequelize } = require('sequelize')
+const bcrypt = require('bcryptjs')
 const limitCount = 12
 const userService = {
   register: async (req, res, callback) => {
     try {
       const { name, account, password, checkPassword } = req.body
-      const user = await Users.findOne({
+      console.log(req.body)
+      const user = await User.findOne({
         where: { account: account }
       })
       if (user) {
@@ -17,13 +19,13 @@ const userService = {
       if (password.trim() !== checkPassword.trim()) {
         return callback({ status: "error", message: "請確認密碼一致" })
       }
-      const create = await Users.create({
+      const create = await User.create({
         name,
         account,
-        password
+        password: bcrypt.hashSync(password, bcrypt.genSaltSync(10))
       })
       if (create) {
-        return callback({ status: "seccess", message: "註冊成功，請登入使用" })
+        return callback({ status: "success", message: "註冊成功，請登入使用" })
       }
     } catch (err) {
       console.log(err)
