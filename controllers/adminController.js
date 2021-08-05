@@ -33,8 +33,8 @@ const adminController = {
       return res.render('admin', { count: data.products.count, products: data.products.rows, totalPage: data.totalPage, pre: data.pre, next: data.next, page: data.page, searchKey: data.searchKey, isAdminSearch })
     })
   },
-  editCategoryPage: (req, res) => {
-    adminService.editCategoryPage(req, res, (data) => {
+  createCategory: (req, res) => {
+    adminService.createCategory(req, res, (data) => {
       return res.render('edit', { isCategory: data })
     })
   },
@@ -44,6 +44,17 @@ const adminController = {
       return res.redirect('back')
     })
   },
+  putCategory: (req, res) => {
+    adminService.putCategory(req, res, (data) => {
+      if (data.status === 'success') {
+        req.flash('success_msg', data.message)
+        return res.redirect('back')
+      } else {
+        req.flash('error_msg', data.message)
+        return res.redirect('back')
+      }
+    })
+  },
   getCategories: (req, res) => {
     adminService.getCategories(req, res, (data) => {
       return res.render('adminCategory', { categories: data.categories })
@@ -51,7 +62,7 @@ const adminController = {
   },
   getCategory: (req, res) => {
     adminService.getCategory(req, res, (data) => {
-      return res.render('edit', { category: data.category, isCategory: data.isCategory })
+      return res.render('edit', { category: data.category, isCategory: data.isCategory, editCategory: data.editCategory })
     })
   },
   deleteCategory: (req, res) => {

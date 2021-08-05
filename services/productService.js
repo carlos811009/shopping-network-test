@@ -25,7 +25,7 @@ const productionService = {
       })
       const pages = Math.ceil(products.count / limitCount)
       const pre = page - 1 > 1 ? page - 1 : 1
-      const next = page + 1 < pages ? page + 1 : 4
+      const next = page + 1 < pages ? page + 1 : pages
       const totalPage = Array.from({ length: pages }).map((item, index) => { return index + 1 })
       const category = await Category.findAll({
         raw: true,
@@ -39,7 +39,7 @@ const productionService = {
   searchProducts: async (req, res, callback) => {
     try {
       const searchKey = req.query.search
-      const page = req.params.page
+      const page = Number(req.params.page)
       const category = await Category.findAll({ raw: true, nest: true })
       let products = await Product.findAndCountAll({
         raw: true,
@@ -59,7 +59,7 @@ const productionService = {
       let pages = Math.ceil(products.count / limitCount)
       let totalPage = Array.from({ length: pages }).map((item, index) => { return index + 1 })
       const pre = page - 1 < 1 ? 1 : page - 1
-      let next = page + 1 > pages ? pages : page + 1
+      let next = page + 1 < pages ? page + 1 : pages
       if (products.rows.length !== 0) {
         return callback({ products, pre, next, totalPage, page, category, searchKey })
       }
@@ -87,7 +87,7 @@ const productionService = {
         })
         pages = Math.ceil(products.count / limitCount)
         totalPage = Array.from({ length: pages }).map((item, index) => { return index + 1 })
-        next = page + 1 > pages ? pages : page + 1
+        next = page + 1 < pages ? page + 1 : pages
         return callback({ products, pre, next, totalPage, page, category, searchKey })
       }
     } catch (err) {

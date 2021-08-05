@@ -1,83 +1,59 @@
 {{#if isCategory}}
 <div class="edit-container" style="margin-top:60px">
-  <form action="/admin/create/category" method="POST">
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" {{#if
-        category}}value={{category.name}}{{/if}}>
-    </div>
-    <a class="" href="/admin/category">上一頁</a>
-    <button type="submit" class="btn btn-primary">確認</button>
-  </form>
-</div>
-{{/if}}
+  {{#if editCategory}}
+  put
+  <form action="/admin/category/{{category.id}}/edit?_method=PUT" method="POST">
+    {{else}}
+    post
+    <form action="/admin/create/category" method="POST">
 
-{{#if createProduct}}
-<div class="edit-container" style="margin-top:60px">
-  <form action="/admin/create/product/" method="POST" enctype="multipart/form-data">
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" value="{{product.name}}">
-    </div>
-    <div class="form-group">
-      <label for="category">類別</label>
-      <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="category">
-        {{#each category}}
-        <option value={{this.id}} {{#ifSelect this.name ../product.Category.name}}selected{{/ifSelect}}>{{this.name}}
-        </option>
-        {{/each}}
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="price">價格(NT)
-      </label>
-      <input type="text" class="form-control" name="price" id="price" placeholder="Enter price"
-        value="{{product.price}}">
-    </div>
-    <div class="form-group">
-      <label for="description">簡介</label>
-      <textarea class="form-control" id="description" name="description" rows="3">{{product.description}}</textarea>
-    </div>
-    <div class="form-group">
-      <label for="image">Image</label>
-      <input type="file" class="form-control-file" id="image" name="image">
-    </div>
-    <a class="" href="/admin">上一頁</a>
-    <button type="submit" class="btn btn-primary">確認</button>
-  </form>
+      {{/if}}
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" {{#if
+          category}}value={{category.name}}{{/if}}>
+      </div>
+      <a class="" href="/admin/category">上一頁</a>
+      <button type="submit" class="btn btn-primary">確認</button>
+    </form>
 </div>
 {{else}}
 <div class="edit-container" style="margin-top:60px">
-  <form action="/admin/product/{{product.id}}/edit?_method=PUT" method="POST" enctype="multipart/form-data">
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" value="{{product.name}}">
-    </div>
-    <div class="form-group">
-      <label for="category">類別</label>
-      <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="category">
-        {{#each category}}
-        <option value={{this.id}} {{#ifSelect this.name ../product.Category.name}}selected{{/ifSelect}}>{{this.name}}
-        </option>
-        {{/each}}
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="price">價格(NT)
-      </label>
-      <input type="text" class="form-control" name="price" id="price" placeholder="Enter price"
-        value="{{product.price}}">
-    </div>
-    <div class="form-group">
-      <label for="description">簡介</label>
-      <textarea class="form-control" id="description" name="description" rows="3">{{product.description}}</textarea>
-    </div>
-    <div class="form-group">
-      <label for="image">Image</label>
-      <input type="file" class="form-control-file" id="image" name="image">
-    </div>
-    <a class="" href="/admin">上一頁</a>
-    <button type="submit" class="btn btn-primary">確認</button>
-  </form>
+  {{#if createProduct}}
+  <form action="/admin/create/product/" method="POST" enctype="multipart/form-data">
+    {{else}}
+    <form action="/admin/product/{{product.id}}/edit?_method=PUT" method="POST" enctype="multipart/form-data">
+      {{/if}}
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" value="{{product.name}}">
+      </div>
+      <div class="form-group">
+        <label for="category">類別</label>
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="category">
+          {{#each category}}
+          <option value={{this.id}} {{#ifSelect this.name ../product.Category.name}}selected{{/ifSelect}}>{{this.name}}
+          </option>
+          {{/each}}
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="price">價格(NT)
+        </label>
+        <input type="text" class="form-control" name="price" id="price" placeholder="Enter price"
+          value="{{product.price}}">
+      </div>
+      <div class="form-group">
+        <label for="description">簡介</label>
+        <textarea class="form-control" id="description" name="description" rows="3">{{product.description}}</textarea>
+      </div>
+      <div class="form-group">
+        <label for="image">Image</label>
+        <input type="file" class="form-control-file" id="image" name="image">
+      </div>
+      <a class="" href="/admin">上一頁</a>
+      <button type="submit" class="btn btn-primary">確認</button>
+    </form>
 </div>
 {{/if}}

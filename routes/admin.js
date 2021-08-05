@@ -11,7 +11,7 @@ router.get('/page/:page', adminController.getAllProducts)
 router.get('/product/:id/edit', adminController.getProduct)
 
 router.get('/create/product', adminController.createProduct)
-router.get('/create/category', adminController.editCategoryPage)
+router.get('/create/category', adminController.createCategory)
 
 router.get('/category/:id/edit', adminController.getCategory)
 router.get('/category', adminController.getCategories)
@@ -19,6 +19,7 @@ router.get('/category', adminController.getCategories)
 router.post('/create/category', adminController.postCategory)
 router.post('/create/product', upload.single('image'), adminController.postProduct)
 
+router.put('/category/:id/edit', adminController.putCategory)
 router.put('/product/:id/edit', upload.single('image'), adminController.putProduct)
 router.delete('/product/:id', adminController.deleteProduct)
 router.delete('/category/:id', adminController.deleteCategory)
