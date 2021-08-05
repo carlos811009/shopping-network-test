@@ -69,7 +69,7 @@ const adminService = {
           CategoryId: category,
           price,
           description,
-          file: req.user.image || ''
+          image: req.user.image || ''
         })
       }
       return callback({ status: 'success', message: '產品修改成功' })
@@ -153,7 +153,41 @@ const adminService = {
       console.log(err)
     }
   },
+  createProduct: async (req, res, callback) => {
+    try {
+      const createProduct = true
+      const category = await Category.findAll({ raw: true, nest: true })
+      return callback({ createProduct, category })
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  postProduct: async (req, res, callback) => {
+    try {
+      // const { name, category, price, description } = req.body 
+      const name = req.body.name || ''
+      const category = req.body.category || ''
+      const price = req.body.price || ''
+      const description = req.body.description || ''
+      const { file } = req
+      if (!name.trim() || !category.trim() || !price.trim() || !description.trim()) {
+        return callback({ status: 'error', message: '請填寫所有欄位' })
+      }
+      if (!file) {
+        return callback({ status: 'error', message: '請上傳圖片' })
+      }
+      imgur.setClientID(IMGUR_CLIENT_ID)
+      const img = await imgurUpload(file.path)
+      await Product.create({
+        name, CategoryId: category, price, description,
+        image: img.data.link || req.user.image
+      })
+      return callback({ status: 'success', message: '添加產品成功' })
 
+    } catch (err) {
+      console.log(err)
+    }
+  }
 }
 
 module.exports = adminService

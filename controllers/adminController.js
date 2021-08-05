@@ -59,6 +59,22 @@ const adminController = {
       req.flash('success_msg', data.message)
       return res.redirect('back')
     })
+  },
+  createProduct: (req, res) => {
+    adminService.createProduct(req, res, (data) => {
+      return res.render('edit', { createProduct: data.createProduct, category: data.category })
+    })
+  },
+  postProduct: (req, res) => {
+    adminService.postProduct(req, res, (data) => {
+      if (data.status === 'success') {
+        req.flash('success_msg', data.message)
+        return res.redirect('back')
+      } else {
+        req.flash('error_msg', data.message)
+        return res.redirect('back')
+      }
+    })
   }
 }
 
