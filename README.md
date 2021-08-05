@@ -77,4 +77,11 @@ MySQL
 ## 執行
 - npm run dev
 
+### 管理員測試帳號
+- 帳號：root
+- 密碼：passport
+
+### 使用者測試帳號
+- 帳號：user1
+- 密碼：passport
 
